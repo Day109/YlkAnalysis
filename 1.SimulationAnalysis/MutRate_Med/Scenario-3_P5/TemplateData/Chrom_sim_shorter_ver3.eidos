@@ -1,0 +1,222 @@
+initialize() {
+
+	defineConstant("con_pop", 2000);
+	defineConstant("mu", 1.25e-7);
+	defineConstant("L", 50300);
+	defineConstant("r_b", 0.01);
+	defineConstant("s_b", 0.01);
+	defineConstant("s_d", -0.03);
+
+	initializeSLiMOptions(nucleotideBased=T);
+	initializeAncestralNucleotides(randomNucleotides(L));
+
+	Mm = mmJukesCantor(mu/3);
+	
+	initializeMutationTypeNuc("m1", 0.1, "g", s_d, 0.2);
+	initializeMutationTypeNuc("m2", 0.8, "e", s_b);
+	initializeMutationTypeNuc("m3", 0.5, "f", 0.0);
+
+	Base = 0;
+
+	while (Base < L) {
+
+		//intergenic region
+		NonCodingLen = 35000;
+		Base = Base + NonCodingLen;
+
+		//create genic region
+		ExonLen = 180;
+		for (iter in 0:((ExonLen/4)-1))
+		{
+			NSmt = c(m1,m2,m3);
+			NStype = initializeGenomicElementType("g"+paste(Base),NSmt,c(1,r_b,0),Mm);
+			initializeGenomicElement(NStype, Base, Base+2);
+			Base = Base + 3;
+		
+			Smt = c(m1,m2,m3);
+			Stype = initializeGenomicElementType("g"+paste(Base),Smt,c(0,0,1),Mm);
+			initializeGenomicElement(Stype, Base, Base);
+			Base = Base + 1;
+		}
+
+		for (iter in 0:8)
+		{
+			//intron
+			IntronLen = 1500;
+			Base = Base + IntronLen;
+
+			for (iter in 0:((ExonLen/4)-1))
+			{
+				NSmt = c(m1,m2,m3);
+				NStype = initializeGenomicElementType("g"+paste(Base),NSmt,c(1,r_b,0),Mm);
+				initializeGenomicElement(NStype, Base, Base+2);
+				Base = Base + 3;
+
+				Smt = c(m1,m2,m3);
+				Stype = initializeGenomicElementType("g"+paste(Base),Smt,c(0,0,1),Mm);
+				initializeGenomicElement(Stype, Base, Base);
+				Base = Base + 1;
+			}
+		}
+		//intergenic region
+		Base = Base + NonCodingLen;
+	}
+
+	initializeRecombinationRate(1e-8);
+	
+}
+
+1 late() {
+	c = sim.chromosome;
+	catn("Ancestral: " + c.ancestralNucleotides());
+	sim.addSubpop("p1", con_pop);
+}
+fitness(m2, p1) { return rgamma(1,s_d,0.2); }
+
+1:20000 late()
+{
+	if (sim.generation % 1000 == 0)
+		cat("Generation "+paste(sim.generation)+'\n');
+}
+
+20000 late()
+{
+	sim.addSubpopSplit("p3", con_pop, p1);
+	sim.outputFull(filePath='Generation_0_full.txt');
+
+	p1.outputVCFSample(500, replace=F, filePath='Generation_0_ind_500_p1_polymorphism.vcf');
+	p1.outputVCFSample(100, replace=F, filePath='Generation_0_ind_100_p1_polymorphism.vcf');
+	p1.outputVCFSample(20, replace=F, filePath='Generation_0_ind_20_p1_polymorphism.vcf');
+	p1.outputVCFSample(5, replace=F, filePath='Generation_0_ind_5_p1_polymorphism.vcf');
+	sim.outputFixedMutations(filePath='Generation_0_substitution.txt');
+
+}
+fitness(m2, p3) { return rgamma(1,s_d,0.2); }
+
+20001:34800 late()
+{
+	if (sim.generation % 1000 == 0)
+		cat("Generation "+paste(sim.generation)+'\n');
+}
+
+34800 late()
+{
+	sim.addSubpopSplit("p4", con_pop, p1);
+	sim.outputFull(filePath='Generation_148000_full.txt');
+
+	p1.outputVCFSample(500, replace=F, filePath='Generation_148000_ind_500_p1_polymorphism.vcf');
+	p1.outputVCFSample(100, replace=F, filePath='Generation_148000_ind_100_p1_polymorphism.vcf');
+	p1.outputVCFSample(20, replace=F, filePath='Generation_148000_ind_20_p1_polymorphism.vcf');
+	p1.outputVCFSample(5, replace=F, filePath='Generation_148000_ind_5_p1_polymorphism.vcf');
+	p3.outputVCFSample(500, replace=F, filePath='Generation_148000_ind_500_p3_polymorphism.vcf');
+	p3.outputVCFSample(100, replace=F, filePath='Generation_148000_ind_100_p3_polymorphism.vcf');
+	p3.outputVCFSample(20, replace=F, filePath='Generation_148000_ind_20_p3_polymorphism.vcf');
+	p3.outputVCFSample(5, replace=F, filePath='Generation_148000_ind_5_p3_polymorphism.vcf');
+	sim.outputFixedMutations(filePath='Generation_148000_substitution.txt');
+
+}
+
+34801:69100 late()
+{
+	if (sim.generation % 1000 == 0)
+		cat("Generation "+paste(sim.generation)+'\n');
+}
+
+69100 late()
+{
+
+	sim.addSubpopSplit("p5", con_pop, p4);
+	sim.outputFull(filePath='Generation_491000_full.txt');
+
+	p1.outputVCFSample(500, replace=F, filePath='Generation_491000_ind_500_p1_polymorphism.vcf');
+	p1.outputVCFSample(100, replace=F, filePath='Generation_491000_ind_100_p1_polymorphism.vcf');
+	p1.outputVCFSample(20, replace=F, filePath='Generation_491000_ind_20_p1_polymorphism.vcf');
+	p1.outputVCFSample(5, replace=F, filePath='Generation_491000_ind_5_p1_polymorphism.vcf');
+	p3.outputVCFSample(500, replace=F, filePath='Generation_491000_ind_500_p3_polymorphism.vcf');
+	p3.outputVCFSample(100, replace=F, filePath='Generation_491000_ind_100_p3_polymorphism.vcf');
+	p3.outputVCFSample(20, replace=F, filePath='Generation_491000_ind_20_p3_polymorphism.vcf');
+	p3.outputVCFSample(5, replace=F, filePath='Generation_491000_ind_5_p3_polymorphism.vcf');
+	p4.outputVCFSample(500, replace=F, filePath='Generation_491000_ind_500_p4_polymorphism.vcf');
+	p4.outputVCFSample(100, replace=F, filePath='Generation_491000_ind_100_p4_polymorphism.vcf');
+	p4.outputVCFSample(20, replace=F, filePath='Generation_491000_ind_20_p4_polymorphism.vcf');
+	p4.outputVCFSample(5, replace=F, filePath='Generation_491000_ind_5_p4_polymorphism.vcf');
+	sim.outputFixedMutations(filePath='Generation_491000_substitution.txt');
+
+}
+
+69101:86500 late()
+{
+	if (sim.generation % 1000 == 0)
+		cat("Generation "+paste(sim.generation)+'\n');
+}
+
+86500 late()
+{
+
+	sim.outputFull(filePath='Generation_665000_full.txt');
+
+	p5.outputVCFSample(500, replace=F, filePath='Generation_665000_ind_500_p5_polymorphism.vcf');
+	p5.outputVCFSample(100, replace=F, filePath='Generation_665000_ind_100_p5_polymorphism.vcf');
+	p5.outputVCFSample(20, replace=F, filePath='Generation_665000_ind_20_p5_polymorphism.vcf');
+	p5.outputVCFSample(5, replace=F, filePath='Generation_665000_ind_5_p5_polymorphism.vcf');
+	sim.outputFixedMutations(filePath='Generation_665000_substitution.txt');
+
+}
+
+86501:87800 late()
+{
+    if (sim.generation % 1000 == 0)
+        cat("Generation "+paste(sim.generation)+'\n');
+}
+
+87800 late()
+{
+
+	sim.outputFull(filePath='Generation_678000_full.txt');
+    
+    p1.outputVCFSample(500, replace=F, filePath='Generation_678000_ind_500_p1_polymorphism.vcf');
+    p1.outputVCFSample(100, replace=F, filePath='Generation_678000_ind_100_p1_polymorphism.vcf');
+    p1.outputVCFSample(20, replace=F, filePath='Generation_678000_ind_20_p1_polymorphism.vcf');
+    p1.outputVCFSample(5, replace=F, filePath='Generation_678000_ind_5_p1_polymorphism.vcf');
+    sim.outputFixedMutations(filePath='Generation_678000_substitution.txt');
+
+}
+
+87801:88700 late()
+{
+	if (sim.generation % 1000 == 0)
+		cat("Generation "+paste(sim.generation)+'\n');
+}
+
+88700 late()
+{
+
+	sim.outputFull(filePath='Generation_687000_full.txt');
+	p3.outputVCFSample(500, replace=F, filePath='Generation_687000_ind_500_p3_polymorphism.vcf');
+	p3.outputVCFSample(100, replace=F, filePath='Generation_687000_ind_100_p3_polymorphism.vcf');
+	p3.outputVCFSample(20, replace=F, filePath='Generation_687000_ind_20_p3_polymorphism.vcf');
+	p3.outputVCFSample(5, replace=F, filePath='Generation_687000_ind_5_p3_polymorphism.vcf');
+	sim.outputFixedMutations(filePath='Generation_687000_substitution.txt');
+	
+}
+
+
+88701:96000 late()
+{
+	if (sim.generation % 1000 == 0)
+		cat("Generation "+paste(sim.generation)+'\n');
+}
+
+
+96000 late()
+{
+
+	sim.outputFull(filePath='Generation_760000_full.txt');
+
+	p4.outputVCFSample(500, replace=F, filePath='Generation_760000_ind_500_p4_polymorphism.vcf');
+	p4.outputVCFSample(100, replace=F, filePath='Generation_760000_ind_100_p4_polymorphism.vcf');
+	p4.outputVCFSample(20, replace=F, filePath='Generation_760000_ind_20_p4_polymorphism.vcf');
+	p4.outputVCFSample(5, replace=F, filePath='Generation_760000_ind_5_p4_polymorphism.vcf');
+	sim.outputFixedMutations(filePath='Generation_760000_substitution.txt');
+
+}
