@@ -2,7 +2,7 @@ import glob, os, multiprocessing
 from Bio.Seq import Seq
 import pandas as pd
 
-MainDir = '../'
+MainDir = '/'.join(os.getcwd().split('/')[:-1])+'/'
 TreeFile = MainDir+'GreatApe.tre'
 Thread = 10
 
@@ -23,12 +23,14 @@ def Execute_FastML(FastaFile):
 		os.system('cp '+FastaFile+' '+MainDir+'5.FastMlAsr/'+Gname[:11]+'/'+Gname+'/'+FastmlMsaFile)
 		RunFlag = 1
 
+	OutDir = MainDir+'5.FastMlAsr/'+Gname[:11]+'/'+Gname+'/'
+
 	Commandline = 'perl ../../../Program/FastML.v3.11/www/fastml/FastML_Wrapper.pl'+\
-			' --MSA_File '+FastmlMsaFile+\
-			' --Tree '+TreeFile.split('/')[-1]+\
+			' --MSA_File '+OutDir+'/'+FastmlMsaFile+\
+			' --Tree '+OutDir+'/'+TreeFile.split('/')[-1]+\
 			' --seqType codon'+\
 			' --indelReconstruction ML'+\
-			' --outDir ./'+\
+			' --outDir '+OutDir+\
 			' > '+Gname+'.log 2> '+Gname+'.log2'
 
 	if RunFlag == 1:
@@ -375,7 +377,7 @@ def Perform_MkYlk_test(Species,Target):
 
 if __name__ == "__main__":
 
-	#Multi_FastML()
+	Multi_FastML()
 
 	#Convert_vcf_position_to_MSA() ## Used Vcf file from Ensembl
 

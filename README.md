@@ -52,7 +52,7 @@ python 2.SummarizeResults.py
 from Ensembl (Whole genome fasta, gtf and vcf files). To run the pipeline, 
 move to "2.RealDataAnalysis/" and unzip real data by typing:
 
-tar -zxvf YlkRealData.tar.gz
+cat YlkRealData.tar.gz.parta* | tar zxv
 
 Then, go to "2.RealDataAnalysis/Scripts/" and run the python scripts 
 "1.Preprocessing.py", "2.1.MkYlkPipeline.py" and "2.2.MkYlk_FastMl.py" 
