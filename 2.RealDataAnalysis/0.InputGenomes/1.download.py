@@ -1,6 +1,6 @@
 import os, glob
 
-Release_version = '93'
+Release_version = '95'
 
 fin = open('download.list','r')
 for line in fin:
