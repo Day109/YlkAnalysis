@@ -2,7 +2,7 @@ This page contains the custom python scripts used in an article "Detecting
 inter-species selection signal using population genomes and sequence 
 divergence from the ancestor".
 
-### Requirements before running the pipeline ###
+## Requirements before running the pipeline ###
 
 The programs used in 1.Simulation analysis includes:
 
@@ -28,9 +28,9 @@ Moreover, to run the python script, the following modules need to be installed:
 To run the entire analysis, you need to have 700 Gb of space.
 
 
-### Running the pipeline ###
+## Running the pipeline ###
 
-## Simulation data analysis
+### Simulation data analysis
 
 1.Simulation analysis consists of three different simulations resembling the 
 simplified population history of Great Ape lineage. To run this analysis, 
@@ -46,7 +46,7 @@ python 1.SimulationPipeline.py
 python 2.SummarizeResults.py
 
 
-## Real data analysis
+### Real data analysis
 
 2.Real data analysis is performed using the Great Ape genome data available 
 from Ensembl (Whole genome fasta, gtf and vcf files). To run the pipeline, 
