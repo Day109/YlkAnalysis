@@ -36,14 +36,14 @@ To run the entire analysis, you need to have 700 Gb of space.
 simplified population history of Great Ape lineage. To run this analysis, 
 first move to "1.SimulationAnalysis/" and unzip simulation data by:
 
-python ExtractInputFiles.py
+python ExtractInputFiles.py;
 
 move to the directories: "MutRate_Low", "MutRate_Med" and "MutRate_High" and 
 run the python scripts "1.SimulationPipeline.py" and "2.SummarizeResults.py" 
 by simply typing:
 
-python 1.SimulationPipeline.py
-python 2.SummarizeResults.py
+python 1.SimulationPipeline.py;
+python 2.SummarizeResults.py;
 
 
 ### Real data analysis
@@ -52,13 +52,13 @@ python 2.SummarizeResults.py
 from Ensembl (Whole genome fasta, gtf and vcf files). To run the pipeline, 
 move to "2.RealDataAnalysis/" and unzip real data by typing:
 
-cat YlkRealData.tar.gz.parta* | tar zxv
+cat YlkRealData.tar.gz.parta* | tar zxv;
 
 Then, go to "2.RealDataAnalysis/Scripts/" and run the python scripts 
 "1.Preprocessing.py", "2.1.MkYlkPipeline.py" and "2.2.MkYlk_FastMl.py" 
 by typing:
 
 python 1.Preprocessing.py # Don't have to run this line since the processed 
-							files are already in the main directory
-python 2.1.MkYlkPipeline.py
-python 2.2.MkYlk_FastMl.py
+							files are already in the main directory;
+python 2.1.MkYlkPipeline.py;
+python 2.2.MkYlk_FastMl.py;
