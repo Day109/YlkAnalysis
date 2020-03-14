@@ -57,6 +57,8 @@ def CountPosGenes(DirectorySet):
 
 if __name__ == '__main__':
 
+	os.chdir('../')
+
 	CountDf = {};Header = ['Rate','Selection','P1','P5','P1P5','None','P1_N','P5_N','P1P5_N','None_N','P1_S','P5_S','P1P5_S','Non_S']
 	for ColName in Header:CountDf.setdefault(ColName,[])
 
@@ -92,5 +94,5 @@ if __name__ == '__main__':
 		os.chdir('../')
 
 	CountDf = pd.DataFrame(CountDf,columns=Header)
-	CountDf.to_csv('PosGeneCount_CombinedModel.txt',sep='\t')
+	CountDf.to_csv('OtherScripts/PosGeneCount_CombinedModel.txt',sep='\t')
 

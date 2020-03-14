@@ -411,10 +411,10 @@ if __name__ == "__main__":
 
 	Flist = glob.glob(MainDir+'1.HomologyFromEnsembl/*')
 
-	Summarize_orthologue(Flist)
+	#Summarize_orthologue(Flist)
 	
-	Multi_sample_GTF(Flist)
-	Merge_Cds_files('OrthologGeneList.txt')
+	#Multi_sample_GTF(Flist)
+	#Merge_Cds_files('OrthologGeneList.txt')
 
 	## Msa only
 	multi_MSA()
