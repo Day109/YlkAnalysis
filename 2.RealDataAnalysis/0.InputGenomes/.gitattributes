@@ -1,6 +1,0 @@
-*.gtf filter=lfs diff=lfs merge=lfs -text
-InputFastaFiles.tar.gz.partaa filter=lfs diff=lfs merge=lfs -text
-InputFastaFiles.tar.gz.partab filter=lfs diff=lfs merge=lfs -text
-InputFastaFiles.tar.gz.partac filter=lfs diff=lfs merge=lfs -text
-InputFastaFiles.tar.gz.partad filter=lfs diff=lfs merge=lfs -text
-InputFastaFiles.tar.gz.partae filter=lfs diff=lfs merge=lfs -text

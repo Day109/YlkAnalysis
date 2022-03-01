@@ -1,2 +1,0 @@
-/usr/bin/ar qc libkastore.a  CMakeFiles/kastore.dir/treerec/tskit/kastore/kastore.c.o
-/usr/bin/ranlib libkastore.a

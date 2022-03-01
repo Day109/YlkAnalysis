@@ -1,6 +1,6 @@
 List of programs needed to run the pipeline:
 
-- vcf2fasta - already in the directory
-- SLiM(v3.3) - already in the directory
+- vcf2fasta
 - FastMl(v3.11)
 - Prank(v170427)
+- SFS_CODE
