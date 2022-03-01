@@ -51,4 +51,4 @@ by typing:
 python 1.Preprocessing.py # Don't have to run this line since the processed 
                                                         files are already in the main directory;
 
-# Example commandline for 2.AncestralMK.py can be found in "ExampleCommandline.txt"
+Example commandline for 2.AncestralMK.py can be found in "ExampleCommandline.txt"
